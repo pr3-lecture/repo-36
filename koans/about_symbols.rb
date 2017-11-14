@@ -37,64 +37,78 @@ class AboutSymbols < Neo::Koan
     RubyConstant = "What is the sound of one hand clapping?"
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
-
+      #Symbol.all_symbols contains every symbol that was referenced
+      #variable names, class names, constant names , actual symbols.
+      #It returns a compy of the array of symbols, not a reference.
+      #"When executing code in a file, Ruby scans the entire file for
+      #symbols before executing anything."?
       assert_equal true, all_symbols_as_strings.include?("RubyConstant")
     end
+
   end
 
   def test_symbols_can_be_made_from_strings
     string = "catsAndDogs"
-    assert_equal __, string.to_sym
+    assert_equal :catsAndDogs, string.to_sym
   end
 
   def test_symbols_with_spaces_can_be_built
     symbol = :"cats and dogs"
 
-    assert_equal __.to_sym, symbol
+    assert_equal :"cats and dogs".to_sym, symbol
   end
 
   def test_symbols_with_interpolation_can_be_built
     value = "and"
     symbol = :"cats #{value} dogs"
 
-    assert_equal __.to_sym, symbol
+    assert_equal :"cats and dogs".to_sym, symbol
   end
 
   def test_to_s_is_called_on_interpolated_symbols
     symbol = :cats
     string = "It is raining #{symbol} and dogs."
 
-    assert_equal __, string
+    assert_equal "It is raining cats and dogs.", string
   end
 
   def test_symbols_are_not_strings
     symbol = :ruby
-    assert_equal __, symbol.is_a?(String)
-    assert_equal __, symbol.eql?("ruby")
+    assert_equal false, symbol.is_a?(String)
+    assert_equal false, symbol.eql?("ruby")
   end
 
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
-    assert_equal __, symbol.respond_to?(:each_char)
-    assert_equal __, symbol.respond_to?(:reverse)
+    assert_equal false, symbol.respond_to?(:each_char)
+    assert_equal false, symbol.respond_to?(:reverse)
   end
+  # respond_to? is a Ruby method for detecting whether the class has a particular method on it. For example,
+  # @user.respond_to?('eat_food')
+  # would return true if the User class has an eat_food method on it.
 
   # It's important to realize that symbols are not "immutable
   # strings", though they are immutable. None of the
   # interesting string operations are available on symbols.
+  #"Symbols are like strings but they are immutable - they can't be modified.
+  # The are only put into memory once, making them very efficient to use for things like keys in
+  # hashes but they stay in memory until the program exits.
 
   def test_symbols_cannot_be_concatenated
     # Exceptions will be pondered further down the path
-    assert_raise(___) do
+    assert_raise(NoMethodError) do
       :cats + :dogs
     end
   end
 
   def test_symbols_can_be_dynamically_created
-    assert_equal __, ("cats" + "dogs").to_sym
+    assert_equal :catsdogs, ("cats" + "dogs").to_sym
   end
 
   # THINK ABOUT IT:
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
+
+  # "Symbols reduce memory overhead.They cannot be garbage collected once created.
+  # Creating thousands and thousands of symbols would allocate the memory and not be recoverable. ..."
 end
