@@ -30,7 +30,32 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+  return 0 if dice == []
+
+  counter=Hash.new(0)  #"If obj is specified, this single object will be used for all default values"
+  dice.each {|number| counter[number]+=1} #"https://stackoverflow.com/questions/5128200/how-to-count-identical-string-elements-in-a-ruby-array"
+  result = 0
+  counter.each {|key, value|
+    if key==1
+      result+= 1000 if value>=3 # result+= 1000 value-=3 if value>=3 doesn't work :(
+      value-=3 if value>=3 # bad solution
+      result+= 100*value
+      next
+    end
+
+    if key==5
+      result+= 100*key if value>=3
+      value-=3 if value>=3 # bad solution
+      result+= 50*value
+      next
+    end
+
+    if value==3
+      result+= 100*key
+      next
+    end
+  }
+ return result
 end
 
 class AboutScoringProject < Neo::Koan
