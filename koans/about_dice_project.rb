@@ -1,10 +1,22 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
-#
-# class DiceSet
-#   code ...
-# end
+
+class DiceSet
+  attr_reader :values
+
+  def roll (number)
+    @values = []
+    # https://stackoverflow.com/questions/198460/how-to-get-a-random-number-in-ruby
+    # times returns an Enumerator (Module:Enumerable contains method :map (:collect))
+    # (1..4).collect{"cat"} => ["cat","cat","cat","cat"]
+    # map and collect returns an array
+    # other solution: number.downto(1) {|i| @values.push(1+rand(6))}
+
+    @values = number.times.map{1 + Random.rand(6)}
+  end
+
+end
 
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
