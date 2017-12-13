@@ -1,3 +1,10 @@
+;Lisp Ãœbungsblatt2 PR3
+
+;Diana Beldiman 1513454
+;Santino Nobile 1414417
+;Marco PrÃ¤g 1613370
+
+
 
 (setq baum '(8(4(2(1 nil nil)(3 nil nil))(6 nil nil))(12 (10 nil (11 nil nil)) nil)))
 
@@ -168,33 +175,33 @@
 (setq in -1)
 (setq tree nil)
 (loop while (not (= in 0)) do
- (p "Menü")
+ (p "MenÃ¼")
  (p "1 : Baum erstellen")
- (p "2 : Element einfügen")
+ (p "2 : Element einfÃ¼gen")
  (p "3 : Kleinstes Element")
- (p "4 : Größtes Element")
- (p "5 : Prüfen ob Baum leer")
+ (p "4 : GrÃ¶ÃŸtes Element")
+ (p "5 : PrÃ¼fen ob Baum leer")
  (p "6 : Element entfernen")
  (p "7 : Levelorder")
- (p "8 : Höhe des Baumes")
- (p "9 : Elemente eines Baumes hinzufügen")
- (p "10: Prüfen ob ein bestimmtes Element vorhanden ist")
- (p "11: Elemente aus einer Datei hinzufügen")
+ (p "8 : HÃ¶he des Baumes")
+ (p "9 : Elemente eines Baumes hinzufÃ¼gen")
+ (p "10: PrÃ¼fen ob ein bestimmtes Element vorhanden ist")
+ (p "11: Elemente aus einer Datei hinzufÃ¼gen")
  (p "12: Anzahl nicht-leerer Knoten")
- (p "0 : Menü beenden")
+ (p "0 : MenÃ¼ beenden")
  (p "Option eingeben ==> ")
  (setq op (read))
    (case op
-     (1 (p "Bitte fügen Sie ein erstes Element in den leeren Baum ein (Nil ist erlaubt)") (p (setq tree (make-tree (read) nil nil))))
-     (2 (p "Element einfügen") (p (setq tree (insertval (read) tree))))
+     (1 (p "Bitte fÃ¼gen Sie ein erstes Element in den leeren Baum ein (Nil ist erlaubt)") (p (setq tree (make-tree (read) nil nil))))
+     (2 (p "Element einfÃ¼gen") (p (setq tree (insertval (read) tree))))
      (3 (p "Kleinstes Element") (p (getmin tree)))
-	 (4 (p "Größtes Element") (p (getmax tree)))
-	 (5 (p "Prüfen ob baum leer") (p (isempty tree)))
+	 (4 (p "GrÃ¶ÃŸtes Element") (p (getmax tree)))
+	 (5 (p "PrÃ¼fen ob baum leer") (p (isempty tree)))
 	 (6 (p "Element entfernen") (p(setq tree (removeVal (read) tree))))
 	 (7 (p "Levelorder") (printLevelOrder tree))
-	 (8 (p "Höhe des Baumes") (p(height tree)))
-	 (9 (p "Elemente eines anderen Baumes zum jetzigen Baum hinzufügen") (p (setq tree (addAll (read) tree))))
-     (10 (p "Prüfen ob ein bestimmtes Element vorhanden ist") (p (containsval (read) tree)))
-	 (11 (p "Elemente aus einer Datei hinzufügen") (p (setq tree (insertfile tree (read)))))
+	 (8 (p "HÃ¶he des Baumes") (p(height tree)))
+	 (9 (p "Elemente eines anderen Baumes zum jetzigen Baum hinzufÃ¼gen") (p (setq tree (addAll (read) tree))))
+     (10 (p "PrÃ¼fen ob ein bestimmtes Element vorhanden ist") (p (containsval (read) tree)))
+	 (11 (p "Elemente aus einer Datei hinzufÃ¼gen") (p (setq tree (insertfile tree (read)))))
 	 (12 (p "Anzahl nicht-leerer Knoten") (p (size tree)))
      (0 (p "Bye") (setq in 0)))))
