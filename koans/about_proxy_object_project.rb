@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/neo')
+# require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Project: Create a Proxy Class
 #
@@ -16,10 +16,31 @@ class Proxy
   def initialize(target_object)
     @object = target_object
     # ADD MORE CODE HERE
+    @messages = Array.new
   end
 
   # WRITE CODE HERE
+  def number_of_times_called(message)
+  # https://ruby-doc.org/core-1.9.3/Array.html#method-i-count
+    @messages.count(message)
+  end
+
+  def method_missing(method_name, *args, &block)
+    "Someone called #{method_name} with <#{args.join(", ")}>"
+    @messages.push(method_name)
+    @object.send(method_name, *args, &block)
+  end
+
+  def called?(message)
+    @messages.include?(message)
+  end
+
+  def messages
+    @messages
+  end
+
 end
+
 
 # The proxy object should pass the following Koan:
 #
